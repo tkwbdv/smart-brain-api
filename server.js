@@ -16,12 +16,7 @@ const app = express();  // create express server
 
 const db = knex({
   client: "pg",
-  connection: {
-    host: "localhost",
-    user: "postgres",
-    password: "test",
-    database: "smart-brain"
-  }
+  connection: process.env.DATABASE_URL,
 });
 
 // middleware ==============================
@@ -34,11 +29,7 @@ app.use(cors());
 
 // routes ======================================
 
-app.get("/", (req, res) => {
-  db.select("*").from("users")
-    .then(response => res.send(response))
-    .catch(err => res.send(err));
-})
+app.get("/", (req, res) => res.send("Welcome!"));
 
 app.post("/signin", (req, res) => signIn.handleSignIn(req, res, db, bcrypt));
 
