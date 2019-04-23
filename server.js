@@ -16,7 +16,10 @@ const app = express();  // create express server
 
 const db = knex({
   client: "pg",
-  connection: process.env.DATABASE_URL,
+  connection: {
+    host: process.env.DATABASE_URL,
+    ssl: true,
+  },
 });
 
 // middleware ==============================
